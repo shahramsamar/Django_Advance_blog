@@ -1,4 +1,5 @@
 version: "3.9"
+
 services:
   backend:
     build: .
@@ -8,6 +9,7 @@ services:
       - ./core:/app
     ports:
       - "8000:8000"
-    # environment:
-    #   - SECRET_KEY=test
-    #   - DEBUG=True
+    environment:
+      - SECRET_KEY='django-insecure-hggwv55^jjtcrhdassz$p!%f(bx)rqbsrohkrh8nb1bx8c7aln'
+
+      - DEBUG=True
