@@ -1,0 +1,17 @@
+# create  image 
+# docker bulid -t django .
+
+# run image and project
+# docker run -p 8000:8000 django
+
+# check run container
+# docker ps -a
+
+# run docker compose
+# docker compose up --build
+
+# package in docker install
+# docker-compose exec name container(backend) sh -c "pip install  package name " 
+
+# when we have create app in container 
+# docker-compose exec backend sh -c "python manage.py startapp blog" 
