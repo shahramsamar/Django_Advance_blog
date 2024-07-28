@@ -1,6 +1,11 @@
 from django.db import models
+# from accounts.models import User
+from django.contrib.auth import get_user_model
 
-# Create your models here.
+# getting user model object
+User = get_user_model()
+
+
 
 class Post(models.Model):
     '''
@@ -23,7 +28,7 @@ class Post(models.Model):
     def __str__(self) :
         return self.title
     
-class Category(models.models):
+class Category(models.Model):
     name = models.CharField(max_length=255) 
       
       
