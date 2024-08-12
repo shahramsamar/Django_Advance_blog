@@ -5,7 +5,7 @@ from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from blog.models import Post
 from blog.form import ContactForm, PostForm
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 '''
 fbv for templateview
 '''
@@ -51,7 +51,7 @@ class  RedirectToMaktab(RedirectView):
         return super().get_redirect_url(*args, **kwargs)
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin, ListView):
     
     '''
     a class  based listview to show post_list page
@@ -72,7 +72,7 @@ class PostListView(ListView):
     #     return posts
  
  
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     '''
     a class  based DetailView to show post_detail page
     '''
@@ -93,7 +93,7 @@ class PostDetailView(DetailView):
     #     return super().form_valid(form)   
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     '''
     a class  based CreateView to show post_form page
     '''
@@ -108,7 +108,7 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
     
     
-class PostEditView(UpdateView):
+class PostEditView(LoginRequiredMixin, UpdateView):
     '''
     a class  based UpdateView to show post_form page
     '''  
@@ -116,7 +116,7 @@ class PostEditView(UpdateView):
     form_class = PostForm
     success_url = '/blog/post/'
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     '''
     a class  based DeleteView to show post_form page
     '''  
