@@ -2,7 +2,7 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic import ListView, DetailView, FormView, CreateView
+from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView
 from blog.models import Post
 from blog.form import ContactForm, PostForm
 
@@ -102,8 +102,18 @@ class PostCreateView(CreateView):
     fields = ['title','content','status','category','published_date']
     success_url = '/blog/post/'
     
+    # get user login and filed author object
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
- 
+    
+class PostEditView(UpdateView):
+    '''
+    a class  based CreateView to show post_form page
+    '''  
+    model = Post 
+    form_class = PostForm
+    success_url = '/blog/post/'
+
+    
