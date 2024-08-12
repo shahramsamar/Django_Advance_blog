@@ -5,7 +5,7 @@ from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from blog.models import Post
 from blog.form import ContactForm, PostForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 '''
 fbv for templateview
 '''
@@ -25,38 +25,40 @@ fbv for redirect
 #     return redirect("https://maktabkhooneh.com")
 
 
-class IndexView(TemplateView):
-    '''
-    a class  based templateview to show Index page
-    '''
-    template_name = "index.html"
+# class IndexView(TemplateView):
+#     '''
+#     a class  based templateview to show Index page
+#     '''
+#     template_name = "index.html"
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["name"] = "ali"
-        context["posts"] = Post.objects.all()
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context["name"] = "ali"
+#         context["posts"] = Post.objects.all()
+#         return context
    
 
 
-class  RedirectToMaktab(RedirectView): 
-    '''
-    a class  based redirectview to show redirect_to_maktabkhooneh page
-    '''
-    url ='https://maktabkhooneh.com'
+# class  RedirectToMaktab(RedirectView): 
+#     '''
+#     a class  based redirectview to show redirect_to_maktabkhooneh page
+#     '''
+#     url ='https://maktabkhooneh.com'
     
-    def get_redirect_url(self, *args, **kwargs):
-        post = get_object_or_404(Post,pk=kwargs['pk'])
-        print(post)
-        return super().get_redirect_url(*args, **kwargs)
+#     def get_redirect_url(self, *args, **kwargs):
+#         post = get_object_or_404(Post,pk=kwargs['pk'])
+#         print(post)
+#         return super().get_redirect_url(*args, **kwargs)
 
 
-class PostListView(LoginRequiredMixin, ListView):
+class PostListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
     
     '''
     a class  based listview to show post_list page
     '''
     # this two command to way for  get object all 
+    permission_required = "blog.view_post"
+    
     model = Post
     # queryset = Post.objects.all()
     
