@@ -61,6 +61,8 @@ class Postlist(ListView):
     
     # change name for object_list and choses your opinion name
     context_object_name = 'posts'
+    paginate_by = 2
+    
     
     def get_queryset(self):
         posts = Post.objects.filter(status=True)
