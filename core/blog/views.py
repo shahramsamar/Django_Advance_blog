@@ -2,9 +2,10 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, FormView
 from blog.models import Post
 
+from blog.form import ContactForm, PostForm
 '''
 fbv for templateview
 '''
@@ -72,6 +73,23 @@ class PostListView(ListView):
  
  
 class PostDetailView(DetailView):
+    '''
+    a class  based DetailView to show post_detail page
+    '''
     model = Post    
-        
-    url = "https://maktabkhooneh.com" 
+    
+
+class PostCreateView(FormView):
+    '''
+    a class  based FormView to show post_create page
+    '''
+    template_name = 'blog/contact.html'
+    # f    # form_class = ContactForm
+    form_class = PostForm
+    success_url = '/blog/post/'
+    
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+    
+    
