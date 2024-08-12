@@ -6,13 +6,19 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>blog post</h1>
+    <h1>blog post h1</h1>
+    <h6>{{ object_list }}</h6>
+    <h5>{{posts}}</h5>
+
+    <h2>blog post h2</h2>
+
     {% for post in posts %}
 
         <div>
             <h2> {{ post.title }}</h2>
-            <p> </p>
+            <p> {{ post.content }}</p>
         </div>
+        
     {% endfor %}
     
 </body>

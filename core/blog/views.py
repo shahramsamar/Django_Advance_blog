@@ -24,12 +24,9 @@ fbv for redirect
 #     return redirect("https://maktabkhooneh.com")
 
 
-
-
-
 class IndexView(TemplateView):
     '''
-    a class  based view to show index page
+    a class  based templateview to show Index page
     '''
     template_name = "index.html"
     
@@ -42,6 +39,9 @@ class IndexView(TemplateView):
 
 
 class  RedirectToMaktab(RedirectView): 
+    '''
+    a class  based redirectview to show redirect_to_maktabkhooneh page
+    '''
     url ='https://maktabkhooneh.com'
     
     def get_redirect_url(self, *args, **kwargs):
@@ -50,18 +50,21 @@ class  RedirectToMaktab(RedirectView):
         return super().get_redirect_url(*args, **kwargs)
 
 
-# class Postlist(ListView):
+class Postlist(ListView):
     
-#     # this two command to way for  get object all 
-#     # model = Post
-#     # queryset = Post.objects.all()
+    '''
+    a class  based listview to show post_list page
+    '''
+    # this two command to way for  get object all 
+    # model = Post
+    # queryset = Post.objects.all()
     
+    # change name for object_list and choses your opinion name
+    context_object_name = 'posts'
     
-#     context_object_name = 'posts'
-    
-#     def get_queryset(self):
-#         posts = Post.objects.filter(status=True)
-#         return posts
+    def get_queryset(self):
+        posts = Post.objects.filter(status=True)
+        return posts
     
         
     url = "https://maktabkhooneh.com" 
