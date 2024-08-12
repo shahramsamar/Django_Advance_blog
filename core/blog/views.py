@@ -56,17 +56,19 @@ class Postlist(ListView):
     a class  based listview to show post_list page
     '''
     # this two command to way for  get object all 
-    # model = Post
+    model = Post
     # queryset = Post.objects.all()
     
     # change name for object_list and choses your opinion name
     context_object_name = 'posts'
     paginate_by = 2
+    # if we added ordering must changing  structure
+    ordering = '-id'
     
-    
-    def get_queryset(self):
-        posts = Post.objects.filter(status=True)
-        return posts
+    # disable when ordering use
+    # def get_queryset(self):
+    #     posts = Post.objects.filter(status=True)
+    #     return posts
     
         
     url = "https://maktabkhooneh.com" 
