@@ -2,7 +2,7 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from blog.models import Post
 from blog.form import ContactForm, PostForm
 
@@ -110,10 +110,17 @@ class PostCreateView(CreateView):
     
 class PostEditView(UpdateView):
     '''
-    a class  based CreateView to show post_form page
+    a class  based UpdateView to show post_form page
     '''  
     model = Post 
     form_class = PostForm
+    success_url = '/blog/post/'
+
+class PostDeleteView(DeleteView):
+    '''
+    a class  based DeleteView to show post_form page
+    '''  
+    model = Post 
     success_url = '/blog/post/'
 
     
