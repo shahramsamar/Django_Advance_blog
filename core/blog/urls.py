@@ -22,9 +22,10 @@ from django.views.generic.base import RedirectView
 
 app_name = 'blog'
 urlpatterns = [
-    path('cbv-index', views.IndexView.as_view(), name='cbv-index'),
-    path('go-to-maktabkhooneh/<int:pk>/', views.RedirectToMaktab.as_view(), name='redirect_to_maktabkhooneh'),
-    path('post/', views.Postlist.as_view(), name='post_list'),
+    # path('cbv-index', views.IndexView.as_view(), name='cbv-index'),
+    # path('go-to-maktabkhooneh/<int:pk>/', views.RedirectToMaktab.as_view(), name='redirect_to_maktabkhooneh'),
+    path('post/', views.PostListView.as_view(), name='post_list'),
+    path('post/<int:pk>/', views.PostDetailView.as_view(), name='post_detail')
     
     # fbv-index 
     # path('fbv-index', indexView, name="fbv-test"),
