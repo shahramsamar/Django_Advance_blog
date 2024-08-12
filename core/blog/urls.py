@@ -15,24 +15,30 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from blog.views import indexView
+# from blog.views import indexView
 from blog import views
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 
 app_name = 'blog'
 urlpatterns = [
-    path('fbv-index', indexView, name="fbv-test"),
-    # cbv-index two way 
-    # path('cbv-index',TemplateView.as_view(template_name="index.html",extra_context={'name':'ali'})),
     path('cbv-index',views.IndexView.as_view(), name='cbv-index'),
+    path('go-to-maktabkhooneh/<int:pk>/',views.RedirectToMaktab.as_view(), name='redirect_to_maktabkhooneh'),
+    # path('post/',views.Postlist.as_view(),name='post_list'),
+    
+    # fbv-index 
+    # path('fbv-index', indexView, name="fbv-test"),
+    
+    # cbv-index two way 
+    # path('cbv-index',views.IndexView.as_view(), name='cbv-index'),
+    # path('cbv-index',TemplateView.as_view(template_name="index.html",extra_context={'name':'ali'})),
+   
     # path('go-to-maktabkhooneh',
     #      RedirectView.as_view(url='https://maktabkhooneh.com/'),
     #      name='redirect_to_maktabkhoneh'),
-    path('go-to-index',
-         RedirectView.as_view(pattern_name = 'blog:cbv-index'),
-         name='redirect_to_index'),
-    # path('go-to-maktabkhoneh',RedirectView.as_view(url='https//maktabkhooneh.com/'), name='redirect_to_maktabkhoneh'),
-
+  
+    # path('go-to-index',
+    #      RedirectView.as_view(pattern_name = 'blog:cbv-index'),
+    #      name='redirect_to_index'),
 ]
 

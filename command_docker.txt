@@ -62,6 +62,6 @@
  docker-compose exec backend sh -c "python manage.py makemigrations"
  docker-compose exec backend sh -c "python manage.py migrate"
  docker-compose exec backend sh -c "python manage.py createsuperuser"
-
+ docker-compose exec backend sh -c "python manage.py changepassword username or email"
  
 
