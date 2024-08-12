@@ -99,7 +99,7 @@ class PostCreateView(CreateView):
     '''
     model = Post 
     # form_class = PostForm
-    fields = ['author','title','content','status','category','published_date']
+    fields = ['title','content','status','category','published_date']
     success_url = '/blog/post/'
     
     def form_valid(self, form):
