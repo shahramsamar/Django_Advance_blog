@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, FormView, CreateView, Upd
 from blog.models import Post
 from blog.form import ContactForm, PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
 '''
 fbv for templateview
 '''
@@ -24,13 +25,11 @@ fbv for redirect
 # def RedirectToMaktab(request):
 #     return redirect("https://maktabkhooneh.com")
 
-
+'''
+a class  based templateview to show Index page
+'''
 # class IndexView(TemplateView):
-#     '''
-#     a class  based templateview to show Index page
-#     '''
 #     template_name = "index.html"
-    
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)
 #         context["name"] = "ali"
@@ -38,13 +37,11 @@ fbv for redirect
 #         return context
    
 
-
+'''
+a class  based redirectview to show redirect_to_maktabkhooneh page
+'''
 # class  RedirectToMaktab(RedirectView): 
-#     '''
-#     a class  based redirectview to show redirect_to_maktabkhooneh page
-#     '''
 #     url ='https://maktabkhooneh.com'
-    
 #     def get_redirect_url(self, *args, **kwargs):
 #         post = get_object_or_404(Post,pk=kwargs['pk'])
 #         print(post)
