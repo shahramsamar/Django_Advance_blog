@@ -14,7 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import path, include
 # from blog.views import indexView
 from blog import views
 from django.views.generic import TemplateView
@@ -29,6 +29,10 @@ urlpatterns = [
     path('post/create/', views.PostCreateView.as_view(), name='post_create'),
     path('post/<int:pk>/edit/', views.PostEditView.as_view(), name='post_edit'),
     path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
+    # path('api-auth/', include('rest_framework.urls'))
+    path('api/v1/', include('blog.api.v1.urls'))
+    # path('post/', views.ApiPostListView, name='post_list'),
+
     
     # fbv-index 
     # path('fbv-index', indexView, name="fbv-test"),

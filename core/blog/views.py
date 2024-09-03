@@ -6,7 +6,7 @@ from django.views.generic import ListView, DetailView, FormView, CreateView, Upd
 from blog.models import Post
 from blog.form import ContactForm, PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-
+from django.http import HttpResponse
 '''
 fbv for templateview
 '''
@@ -123,3 +123,10 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/blog/post/'
 
     
+    
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+@api_view()
+def ApiPostListView(request):
+        return Response("ok")
+        

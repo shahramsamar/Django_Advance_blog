@@ -68,5 +68,3 @@
  docker-compose exec backend sh -c "pip install djangorestframework"
  docker-compose exec backend sh -c "pip install markdown"
  docker-compose exec backend sh -c "pip install django-filter"
-
-lm
