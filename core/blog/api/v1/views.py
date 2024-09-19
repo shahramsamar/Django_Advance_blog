@@ -11,11 +11,23 @@ data = {
     'title':'hello'
 }
 
-@api_view()
+@api_view(['GET','POST'])
 def post_list(request):
-    post = Post.objects.filter(status=True)
-    serializer = PostSerializer(post,many=True)
-    return Response(serializer.data)
+    if request.method =='GET':
+        post = Post.objects.filter(status=True)
+        serializer = PostSerializer(post,many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = PostSerializer(data=request.data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(serializer.data)
+        # else:
+        #     return Response (serializer.errors)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+     
 
 @api_view()
 def post_detail(request,id):
