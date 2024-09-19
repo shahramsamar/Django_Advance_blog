@@ -1,10 +1,14 @@
 from django.http import HttpResponse
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from ...models import Post
 from .serializers import PostSerializer
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
+
+
+
 
 data = {
     'id':1,
@@ -12,6 +16,7 @@ data = {
 }
 
 @api_view(['GET','POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def post_list(request):
     if request.method =='GET':
         post = Post.objects.filter(status=True)
