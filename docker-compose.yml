@@ -1,16 +1,14 @@
 # version: "3.9"
 
 services:
-
   backend:
     build: .
-    container_name: backend
+    container_name: Advance-backend
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./core:/app
     ports:
       - "8000:8000"
     environment:
-      - SECRET_KEY='django-insecure-hggwv55^jjtcrhdassz$p!%f(bx)rqbsrohkrh8nb1bx8c7aln'
-
-      - DEBUG=True
+      SECRET_KEY: django-insecure-hggwv55^jjtcrhdassz$p!%f(bx)rqbsrohkrh8nb1bx8c7aln
+      DEBUG: "True"

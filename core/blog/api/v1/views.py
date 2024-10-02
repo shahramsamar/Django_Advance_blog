@@ -15,7 +15,7 @@ data = {
     'title':'hello'
 }
 
-@api_view(['GET','POST'])
+# model to set auth (IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser)
 @permission_classes([IsAuthenticatedOrReadOnly])
 def post_list(request):
     if request.method =='GET':
