@@ -10,13 +10,14 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 
 
 
-data = {
-    'id':1,
-    'title':'hello'
-}
+# data = {
+#     'id':1,
+#     'title':'hello'
+# }
 
 # model to set auth (IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser)
-@permission_classes([IsAuthenticatedOrReadOnly])
+@permission_classes([IsAuthenticated])
+@api_view()
 def post_list(request):
     if request.method =='GET':
         post = Post.objects.filter(status=True)
