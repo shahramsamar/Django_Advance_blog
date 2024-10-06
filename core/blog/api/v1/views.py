@@ -7,6 +7,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
 
+from rest_framework.views import APIView
 
 
 
@@ -14,28 +15,47 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 #     'id':1,
 #     'title':'hello'
 # }
-
+""" getting a list of post and creating new posts"""
 # model to set auth (IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser)
-@permission_classes([IsAuthenticated])
-@api_view()
-def post_list(request):
-    if request.method =='GET':
-        post = Post.objects.filter(status=True)
-        serializer = PostSerializer(post,many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
+# @api_view(["GET","POST"])
+# @permission_classes([IsAuthenticatedOrReadOnly])
+# def post_list(request):
+#     if request.method =='GET':
+#         post = Post.objects.filter(status=True)
+#         serializer = PostSerializer(post,many=True)
+#         return Response(serializer.data)
+#     elif request.method == 'POST':
+#         serializer = PostSerializer(data=request.data)
+#         # if serializer.is_valid():
+#         #     serializer.save()
+#         #     return Response(serializer.data)
+#         # else:
+#         #     return Response (serializer.errors)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+     
+
+""" getting a list of post and creating new posts"""
+class PostList(APIView):
+    """ retrieving a list of posts"""
+    def get(self,request):
+            post = Post.objects.filter(status=True)
+            serializer = PostSerializer(post,many=True)
+            return Response(serializer.data)
+    """creating a post with provided data"""
+    def post(self,request):
         serializer = PostSerializer(data=request.data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data)
-        # else:
-        #     return Response (serializer.errors)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
-     
+       
 
+
+
+""" getting a list of post and creating,delete,update posts"""
 @api_view(["GET","PUT","DELETE"])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def post_detail(request,id):
     # try:
     #     post = Post.objects.get(pk=id)
