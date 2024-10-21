@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework.views import APIView
 
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import GenericAPIView, ListCreateAPIView,ListAPIView
 from rest_framework import mixins
 
 # data = {
@@ -54,20 +54,26 @@ from rest_framework import mixins
 #         serializer.save()
 #         return Response(serializer.data)
        
-class PostList(GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin):
+# class PostList(GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin):
+#     """ getting a list of post and creating new posts"""
+#     permission_classes =[IsAuthenticated]
+#     serializer_class = PostSerializer
+#     queryset = Post.objects.filter(status=True)
+    
+#     """ retrieving a list of posts"""
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+          
+#     """creating a post with provided data"""    
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+
+class PostList(ListCreateAPIView):
     """ getting a list of post and creating new posts"""
     permission_classes =[IsAuthenticated]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
     
-    """ retrieving a list of posts"""
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-          
-    """creating a post with provided data"""    
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
 
 
 """ getting a list of post and creating,delete,update posts"""
