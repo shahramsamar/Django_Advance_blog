@@ -8,6 +8,6 @@ urlpatterns = [
     # path('post/',views.post_list,name="post_list"),
     # path('post/<int:id>/',views.post_detail,name="post_detail"),
     path('post/',views.PostList.as_view(),name="post_list"),
-    path('post/<int:id>/',views.PostDetail.as_view(),name="post_detail"),
+    path('post/<int:pk>/',views.PostDetail.as_view(),name="post_detail"),
     
 ]

@@ -103,7 +103,7 @@ class PostList(ListCreateAPIView):
 #             return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)
             
 
-class PostDetail(APIView):
+'''class PostDetail(APIView):
     """ getting detail of the post and edit plus removing it"""
     permission_classes =[IsAuthenticated]
     serializer_class = PostSerializer
@@ -124,4 +124,42 @@ class PostDetail(APIView):
     def delete(self,request,id):
         post = get_object_or_404(Post, pk=id, status=True)
         post.delete()
-        return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)
+        return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)'''
+class PostDetail(GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
+    """ getting detail of the post and edit plus removing it"""
+    permission_classes =[IsAuthenticated]
+    serializer_class = PostSerializer
+    queryset = Post.objects.filter(status=True)
+    # lookup_field = "id"
+    
+    """retrieving the post data"""
+    def get(self,request,*args,**kwargs):
+        return self.retrieve(request,*args,**kwargs)
+     
+    # """editing the post data"""
+    def put(self,request,*args,**kwargs):
+        return self.update(request,*args,**kwargs)
+    
+    """ deleting the post object """
+    def delete(self,request,*args,**kwargs):
+        return self.destroy(request,*args,**kwargs)
+         
+    
+    """retrieving the post data"""
+'''    def get(self,request,id):
+        post =  get_object_or_404(Post, pk=id, status=True)
+        serializer = self.serializer_class(post)
+        return Response(serializer.data)
+    '''
+    # """editing the post data"""
+    # def put(self,request,id):
+    #     post =  get_object_or_404(Post, pk=id, status=True)
+    #     serializer = self.serializer_class(post)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response(serializer.data)
+    # """ deleting the post object """
+    # def delete(self,request,id):
+    #     post = get_object_or_404(Post, pk=id, status=True)
+    #     post.delete()
+    #     return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)      
