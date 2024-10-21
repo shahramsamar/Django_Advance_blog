@@ -144,7 +144,7 @@ class PostList(ListCreateAPIView):
         return self.destroy(request,*args,**kwargs)
          '''
     
-class PostDetail(RetrieveAPIView,RetrieveDestroyAPIView,RetrieveUpdateAPIView):
+class PostDetail(RetrieveUpdateDestroyAPIView):
     """ getting detail of the post and edit plus removing it"""
     permission_classes =[IsAuthenticated]
     serializer_class = PostSerializer
