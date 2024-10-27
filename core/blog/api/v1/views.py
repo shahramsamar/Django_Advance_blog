@@ -7,9 +7,9 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework.views import APIView
-
 from rest_framework.generics import GenericAPIView, ListCreateAPIView,RetrieveUpdateDestroyAPIView,RetrieveAPIView,RetrieveDestroyAPIView,RetrieveUpdateAPIView
 from rest_framework import mixins
+from rest_framework import viewsets
 
 # data = {
 #     'id':1,
@@ -68,12 +68,6 @@ from rest_framework import mixins
 #     def post(self, request, *args, **kwargs):
 #         return self.create(request, *args, **kwargs)
 
-class PostList(ListCreateAPIView):
-    """ getting a list of post and creating new posts"""
-    permission_classes =[IsAuthenticated]
-    serializer_class = PostSerializer
-    queryset = Post.objects.filter(status=True)
-    
 
 
 """ getting a list of post and creating,delete,update posts"""
@@ -143,23 +137,47 @@ class PostList(ListCreateAPIView):
     def delete(self,request,*args,**kwargs):
         return self.destroy(request,*args,**kwargs)
          '''
+
+# class PostList(ListCreateAPIView):
+#     """ getting a list of post and creating new posts"""
+#     permission_classes =[IsAuthenticated]
+#     serializer_class = PostSerializer
+#     queryset = Post.objects.filter(status=True)
     
-class PostDetail(RetrieveUpdateDestroyAPIView):
-    """ getting detail of the post and edit plus removing it"""
+
+    
+# class PostDetail(RetrieveUpdateDestroyAPIView):
+#     """ getting detail of the post and edit plus removing it"""
+#     permission_classes =[IsAuthenticated]
+#     serializer_class = PostSerializer
+#     queryset = Post.objects.filter(status=True)
+#     # lookup_field = "id"
+#     """retrieving the post data"""
+#     def get(self,request,*args,**kwargs):
+#         return self.retrieve(request,*args,**kwargs)
+     
+#     # """editing the post data"""
+#     def put(self,request,*args,**kwargs):
+#         return self.update(request,*args,**kwargs)
+    
+#     """ deleting the post object """
+#     def delete(self,request,*args,**kwargs):
+#         return self.destroy(request,*args,**kwargs)
+
+
+# Example for ViewSets in CBV
+
+class PostViewSet(viewsets.ViewSet):
+    """ getting a list of post and creating new posts"""
     permission_classes =[IsAuthenticated]
     serializer_class = PostSerializer
-    queryset = Post.objects.filter(status=True)
-    # lookup_field = "id"
-    """retrieving the post data"""
-    def get(self,request,*args,**kwargs):
-        return self.retrieve(request,*args,**kwargs)
-     
-    # """editing the post data"""
-    def put(self,request,*args,**kwargs):
-        return self.update(request,*args,**kwargs)
+    queryset = Post.objects.filter(status=True)   
     
-    """ deleting the post object """
-    def delete(self,request,*args,**kwargs):
-        return self.destroy(request,*args,**kwargs)
-         
+    def list(self,request):
+        serializer = self.serializer_class(self.queryset, many=True)    
+        return Response(serializer.data)  
+    def retrieve(self, request, pk=None):
+        post_object =get_object_or_404(self.queryset, pk=pk)
+        serializer = self.serializer_class(post_object)    
+        return Response(serializer.data) 
     
