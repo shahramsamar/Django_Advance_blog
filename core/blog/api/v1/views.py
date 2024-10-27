@@ -15,6 +15,8 @@ from rest_framework import viewsets
 #     'id':1,
 #     'title':'hello'
 # }
+
+# """"""""""""""""""""""""""@api_view(["GET","POST"])""""""""""""""""""""""""""
 """ getting a list of post and creating new posts"""
 # model to set auth (IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser)
 # @api_view(["GET","POST"])
@@ -34,40 +36,6 @@ from rest_framework import viewsets
 #         serializer.is_valid(raise_exception=True)
 #         serializer.save()
 #         return Response(serializer.data)
-     
-
-# class PostList(APIView):
-#     """ getting a list of post and creating new posts"""
-#     permission_classes =[IsAuthenticated]
-#     serializer_class = PostSerializer
-    
-#     """ retrieving a list of posts"""
-#     def get(self,request):
-#             post = Post.objects.filter(status=True)
-#             serializer = PostSerializer(post,many=True)
-#             return Response(serializer.data)
-        
-#     """creating a post with provided data"""
-#     def post(self,request):
-#         serializer = PostSerializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-#         return Response(serializer.data)
-       
-# class PostList(GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin):
-#     """ getting a list of post and creating new posts"""
-#     permission_classes =[IsAuthenticated]
-#     serializer_class = PostSerializer
-#     queryset = Post.objects.filter(status=True)
-    
-#     """ retrieving a list of posts"""
-#     def get(self, request, *args, **kwargs):
-#         return self.list(request, *args, **kwargs)
-          
-#     """creating a post with provided data"""    
-#     def post(self, request, *args, **kwargs):
-#         return self.create(request, *args, **kwargs)
-
 
 
 """ getting a list of post and creating,delete,update posts"""
@@ -97,6 +65,26 @@ from rest_framework import viewsets
 #             return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)
             
 
+
+# """"""""""""""""""""""""""(APIView)""""""""""""""""""""""""""
+# class PostList(APIView):
+#     """ getting a list of post and creating new posts"""
+#     permission_classes =[IsAuthenticated]
+#     serializer_class = PostSerializer
+    
+#     """ retrieving a list of posts"""
+#     def get(self,request):
+#             post = Post.objects.filter(status=True)
+#             serializer = PostSerializer(post,many=True)
+#             return Response(serializer.data)
+        
+#     """creating a post with provided data"""
+#     def post(self,request):
+#         serializer = PostSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+       
 '''class PostDetail(APIView):
     """ getting detail of the post and edit plus removing it"""
     permission_classes =[IsAuthenticated]
@@ -119,6 +107,24 @@ from rest_framework import viewsets
         post = get_object_or_404(Post, pk=id, status=True)
         post.delete()
         return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)'''
+                 
+       
+#  """"""""""""""""""""""""""(GenericAPIView,mixins)""""""""""""""""""""""""""    
+# class PostList(GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin):
+#     """ getting a list of post and creating new posts"""
+#     permission_classes =[IsAuthenticated]
+#     serializer_class = PostSerializer
+#     queryset = Post.objects.filter(status=True)
+    
+#     """ retrieving a list of posts"""
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+          
+#     """creating a post with provided data"""    
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+
+   
 '''class PostDetail(GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     """ getting detail of the post and edit plus removing it"""
     permission_classes =[IsAuthenticated]
@@ -137,15 +143,14 @@ from rest_framework import viewsets
     def delete(self,request,*args,**kwargs):
         return self.destroy(request,*args,**kwargs)
          '''
-
+#  """"""""""""""""""""""""""(APIView)""""""""""""""""""""""""""    
 # class PostList(ListCreateAPIView):
 #     """ getting a list of post and creating new posts"""
 #     permission_classes =[IsAuthenticated]
 #     serializer_class = PostSerializer
 #     queryset = Post.objects.filter(status=True)
     
-
-    
+ 
 # class PostDetail(RetrieveUpdateDestroyAPIView):
 #     """ getting detail of the post and edit plus removing it"""
 #     permission_classes =[IsAuthenticated]
@@ -165,8 +170,8 @@ from rest_framework import viewsets
 #         return self.destroy(request,*args,**kwargs)
 
 
-# Example for ViewSets in CBV
 
+# Example for ViewSets in CBV
 class PostViewSet(viewsets.ViewSet):
     """ getting a list of post and creating new posts"""
     permission_classes =[IsAuthenticated]
@@ -176,8 +181,20 @@ class PostViewSet(viewsets.ViewSet):
     def list(self,request):
         serializer = self.serializer_class(self.queryset, many=True)    
         return Response(serializer.data)  
+    
     def retrieve(self, request, pk=None):
-        post_object =get_object_or_404(self.queryset, pk=pk)
+        post_object = get_object_or_404(self.queryset, pk=pk)
         serializer = self.serializer_class(post_object)    
         return Response(serializer.data) 
     
+    def create (self, request):
+        pass
+    
+    def update(self,request,pk=None):
+        pass
+    
+    def partial_update(self,request,pk=None):
+        pass
+    
+    def destroy(self,request,pk=None):
+        pass
