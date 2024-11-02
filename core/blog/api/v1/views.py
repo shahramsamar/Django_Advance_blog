@@ -171,30 +171,37 @@ from rest_framework import viewsets
 
 
 
-# Example for ViewSets in CBV
-class PostViewSet(viewsets.ViewSet):
+# # Example for ViewSets in CBV
+# class PostViewSet(viewsets.viewsets):
+#     """ getting a list of post and creating new posts"""
+#     permission_classes =[IsAuthenticated]
+#     serializer_class = PostSerializer
+#     queryset = Post.objects.filter(status=True)   
+    
+#     def list(self,request):
+#         serializer = self.serializer_class(self.queryset, many=True)    
+#         return Response(serializer.data)  
+    
+#     def retrieve(self, request, pk=None):
+#         post_object = get_object_or_404(self.queryset, pk=pk)
+#         serializer = self.serializer_class(post_object)    
+#         return Response(serializer.data) 
+    
+#     def create (self, request):
+#         pass
+    
+#     def update(self,request,pk=None):
+#         pass
+    
+#     def partial_update(self,request,pk=None):
+#         pass
+    
+#     def destroy(self,request,pk=None):
+#         pass
+
+# Example for ModelViewSet) in CBV
+class PostViewSet(viewsets.ModelViewSet):
     """ getting a list of post and creating new posts"""
     permission_classes =[IsAuthenticated]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)   
-    
-    def list(self,request):
-        serializer = self.serializer_class(self.queryset, many=True)    
-        return Response(serializer.data)  
-    
-    def retrieve(self, request, pk=None):
-        post_object = get_object_or_404(self.queryset, pk=pk)
-        serializer = self.serializer_class(post_object)    
-        return Response(serializer.data) 
-    
-    def create (self, request):
-        pass
-    
-    def update(self,request,pk=None):
-        pass
-    
-    def partial_update(self,request,pk=None):
-        pass
-    
-    def destroy(self,request,pk=None):
-        pass
