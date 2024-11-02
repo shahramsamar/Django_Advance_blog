@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from ...models import Post
-from .serializers import PostSerializer
+from ...models import Post, Category
+from .serializers import PostSerializer, CategorySerializer
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
@@ -199,9 +199,17 @@ from rest_framework import viewsets
 #     def destroy(self,request,pk=None):
 #         pass
 
-# Example for ModelViewSet) in CBV
-class PostViewSet(viewsets.ModelViewSet):
-    """ getting a list of post and creating new posts"""
+# Example for ModelViewSet in CBV
+class PostModelViewSet(viewsets.ModelViewSet):
+    """ getting a CRUD for posts"""
     permission_classes =[IsAuthenticated]
     serializer_class = PostSerializer
-    queryset = Post.objects.filter(status=True)   
+    queryset = Post.objects.filter(status=True) 
+      
+      
+# Example for ModelViewSet in CBV
+class CategoryModelViewSet(viewsets.ModelViewSet):
+    permission_classes =[IsAuthenticated]
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+      
