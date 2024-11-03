@@ -15,7 +15,7 @@ class  PostSerializer(serializers.ModelSerializer):
         model = Post
         # fields = "__all__"
         fields =['id','author','title','content','status','created_date','published_date']
-
+        read_only_fields = ['author']
     
 class  CategorySerializer(serializers.ModelSerializer):
  
