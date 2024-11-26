@@ -10,6 +10,9 @@ from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView, ListCreateAPIView,RetrieveUpdateDestroyAPIView,RetrieveAPIView,RetrieveDestroyAPIView,RetrieveUpdateAPIView
 from rest_framework import mixins
 from rest_framework import viewsets
+from .permission import IsOwnerOrReadOnly
+
+
 
 # data = {
 #     'id':1,
@@ -202,14 +205,13 @@ from rest_framework import viewsets
 # Example for ModelViewSet in CBV
 class PostModelViewSet(viewsets.ModelViewSet):
     """ getting a CRUD for posts"""
-    permission_classes =[IsAuthenticated]
+    permission_classes =[IsAuthenticated, IsOwnerOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True) 
-      
-      
+
 # Example for ModelViewSet in CBV
 class CategoryModelViewSet(viewsets.ModelViewSet):
-    permission_classes =[IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
       
