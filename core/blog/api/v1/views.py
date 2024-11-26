@@ -11,7 +11,7 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView,RetrieveUp
 from rest_framework import mixins
 from rest_framework import viewsets
 from .permission import IsOwnerOrReadOnly
-
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 # data = {
@@ -205,9 +205,11 @@ from .permission import IsOwnerOrReadOnly
 # Example for ModelViewSet in CBV
 class PostModelViewSet(viewsets.ModelViewSet):
     """ getting a CRUD for posts"""
-    permission_classes =[IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes =[IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = PostSerializer
-    queryset = Post.objects.filter(status=True) 
+    queryset = Post.objects.filter(status=True)
+    filter_backends = [DjangoFilterBackend] 
+    filterset_fields = ['status', 'author', 'category']
 
 # Example for ModelViewSet in CBV
 class CategoryModelViewSet(viewsets.ModelViewSet):
