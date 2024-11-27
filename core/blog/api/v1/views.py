@@ -7,12 +7,12 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework.views import APIView
-from rest_framework.generics import GenericAPIView, ListCreateAPIView,RetrieveUpdateDestroyAPIView,RetrieveAPIView,RetrieveDestroyAPIView,RetrieveUpdateAPIView
+from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView, RetrieveDestroyAPIView, RetrieveUpdateAPIView
 from rest_framework import mixins
 from rest_framework import viewsets
 from .permission import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 # data = {
 #     'id':1,
 #     'title':'hello'
@@ -207,9 +207,10 @@ class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes =[IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
-    filter_backends = [DjangoFilterBackend, SearchFilter] 
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter] 
     filterset_fields = ['status', 'author', 'category']
-    search_fields = ['title', 'content']
+    ordering_fields = ['published_date']
+
 
 # Example for ModelViewSet in CBV
 class CategoryModelViewSet(viewsets.ModelViewSet):
