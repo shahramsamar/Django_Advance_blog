@@ -13,6 +13,8 @@ from rest_framework import viewsets
 from .permission import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from .paginations import DefaultPagination
+
 # data = {
 #     'id':1,
 #     'title':'hello'
@@ -210,7 +212,7 @@ class PostModelViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter] 
     filterset_fields = ['status', 'author', 'category']
     ordering_fields = ['published_date']
-
+    pagination_class = DefaultPagination
 
 # Example for ModelViewSet in CBV
 class CategoryModelViewSet(viewsets.ModelViewSet):

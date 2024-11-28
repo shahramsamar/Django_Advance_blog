@@ -146,4 +146,11 @@ AUTH_USER_MODEL ='accounts.User'
 # }
 
 # coreapi for documents
-REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
+REST_FRAMEWORK = { 
+                  'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+                  # public pagination
+                #   'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+                #   'PAGE_SIZE': 100
+                  
+                  
+                  }
