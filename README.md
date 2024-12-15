@@ -1,102 +1,120 @@
-# Django Advanced Blog
 
-An advanced blog application built with Django, featuring a variety of modern web development techniques. The application includes functionalities such as user authentication, post categorization, comment systems, and more. This project aims to showcase best practices in Django web development.
+# Django CBV DRF TodoApp
 
-![Alt](https://repobeats.axiom.co/api/embed/eabe6508a91fa38b4ace0060919094363916f544.svg "Repobeats analytics image")
+A comprehensive Django project showcasing the use of Class-Based Views (CBVs) and Django REST Framework (DRF) to build a functional Todo application. This repository is perfect for developers looking to understand the integration of CBVs and DRF in a Django application.
 
 ## Features
 
-- **User Authentication**: Users can register, log in, and manage their profiles.
-- **Post Management**: Admins can create, update, and delete blog posts with a title, content, and featured images.
-- **Category Support**: Posts can be categorized under different topics or themes.
-- **Comment System**: Users can comment on blog posts, providing an interactive experience.
-- **Tagging**: Posts can be tagged with multiple labels for better content discovery.
-- **Rich Text Editor**: Enhanced text editing for creating posts using WYSIWYG.
-- **Pagination**: Post listing includes pagination for easy navigation.
+- **Class-Based Views (CBVs)** for efficient and reusable code.
+- RESTful API implementation using Django REST Framework.
+- Endpoints for creating, retrieving, updating, and deleting tasks.
+- Example serializers and viewsets for managing data.
+- Structured project organization for easy scalability and maintenance.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/shahramsamar/Django_CBV_DRF_TodoApp.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd Django_CBV_DRF_TodoApp
+   ```
+
+3. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+4. Install the dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+5. Apply database migrations:
+   ```bash
+   python manage.py migrate
+   ```
+
+6. Run the development server:
+   ```bash
+   python manage.py runserver
+   ```
+
+## Usage
+
+1. Access the application at `http://127.0.0.1:8000/`.
+
+2. Use the RESTful API endpoints to manage tasks. Examples:
+   - `GET /api/tasks/`: Retrieve a list of tasks.
+   - `POST /api/tasks/`: Create a new task.
+   - `PUT /api/tasks/<id>/`: Update an existing task.
+   - `DELETE /api/tasks/<id>/`: Delete a task.
+
+3. Explore CBV implementations for learning how to structure reusable views.
+
+## Example
+
+### Task Model
+```python
+from django.db import models
+
+class Task(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+```
+
+### API ViewSet
+```python
+from rest_framework import viewsets
+from .models import Task
+from .serializers import TaskSerializer
+
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+```
+
+### Serializer
+```python
+from rest_framework import serializers
+from .models import Task
+
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = '__all__'
+```
 
 ## Requirements
 
-- **Python 3.x**
-- **Django**: The main framework used for the project.
-- **SQLite** (default database for Django, can be replaced with PostgreSQL or MySQL).
-- **Other dependencies** listed in `requirements.txt`.
+- Python 3.7+
+- Django 3.2+
+- Django REST Framework 3.12+
 
-### Installation
+## Contributing
 
-1. **Clone the repository:**
+Contributions are welcome! Please follow these steps:
 
-    ```bash
-    git clone https://github.com/shahramsamar/Django_Advance_blog.git
-    cd Django_Advance_blog
-    ```
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Commit your changes with clear messages.
+4. Push your branch and create a pull request.
 
-2. **Install Dependencies:**
+## License
 
-    If you're using `pip`, run:
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+## Contact
 
-3. **Apply Migrations**:
-
-    Run the following command to set up the database schema:
-
-    ```bash
-    python manage.py migrate
-    ```
-
-4. **Create a Superuser (Admin)**:
-
-    To manage blog posts and user accounts via the admin panel:
-
-    ```bash
-    python manage.py createsuperuser
-    ```
-
-5. **Run the Development Server**:
-
-    Start the development server with:
-
-    ```bash
-    python manage.py runserver
-    ```
-
-    The application will be accessible at `http://127.0.0.1:8000/`.
-
-### How to Use
-
-- **Login / Register**: Create an account or login with an existing user account.
-- **Create Blog Post**: Admins can create, update, and delete blog posts.
-- **Categorize Posts**: Assign each blog post to a category for better organization.
-- **Post Comments**: Logged-in users can comment on posts.
-- **Tags**: Add tags to posts for easy categorization.
-- **Browse Blog**: Users can browse posts by category, tags, or author.
-
-### Project Structure
-
-- `blog/`: The main app that handles all blog-related functionality.
-    - `models.py`: Defines models for posts, categories, comments, tags, etc.
-    - `views.py`: Contains views for rendering blog pages, handling form submissions, and displaying posts.
-    - `urls.py`: Routes the URLs for various blog-related views.
-    - `forms.py`: Contains forms for creating and updating blog posts and comments.
-    - `templates/`: Stores HTML templates for rendering the views.
-        - `post_list.html`: Displays a list of all blog posts with pagination.
-        - `post_detail.html`: Displays the details of an individual blog post along with comments.
-        - `post_form.html`: Form used to create or update posts.
-        - `category_list.html`: Displays posts categorized under specific topics.
-    - `static/`: Contains any static files (CSS, JavaScript, images).
-- `requirements.txt`: Lists all dependencies for the project (e.g., Django, Pillow for image handling).
-- `manage.py`: The Django project management script for running the application.
-
-### Contributing
-
-Feel free to fork the project and submit pull requests for new features, improvements, or bug fixes.
-
-### License
-
-This project is open-source and available for educational purposes.
-
----
-
-This `README.md` provides detailed instructions for setting up, using, and contributing to the **Django Advanced Blog** project. It includes features like user authentication, post management, categories, and comment systems, aimed at demonstrating advanced Django functionality.
+- **Author**: Shahramsamar
+- **Email**: [shahramsamar2010@gmail.com](mailto:shahramsamar2010@gmail.com)
+- **GitHub**: [Shahramsamar](https://github.com/shahramsamar)
+![Alt](https://repobeats.axiom.co/api/embed/eabe6508a91fa38b4ace0060919094363916f544.svg "Repobeats analytics image")
